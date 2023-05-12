@@ -15,15 +15,15 @@ app.listen(port, () => {
 });
 
 app.get('/inputData', function(req, res) {
-    console.log('Request for /inventory was made');
+    console.log('Request for /equations was made');
     // send back list of inventory 
     res.send(equationArray);
 });
 
 app.post('/inputData', function(req, res){
     console.log('POST some equations:', req.body);
-    // we want to add our input inventory into our inventory array
-    // input inventory item is our req.body, pushing it into the inventoryArray array
+    // we want to add our input equation into our equation array
+    // input equation item is our req.body, pushing it into the equationArray
     equationArray.push(req.body)
     res.sendStatus(201)
 });

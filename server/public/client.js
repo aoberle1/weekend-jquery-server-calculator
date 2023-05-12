@@ -1,14 +1,19 @@
 $(document).ready(onReady);
 
 function onReady(){
-    console.log( 'jq')
-    $('#clear-button').on('click', clearInputs)
-    $('#input-fields').on('submit', postInputs)
+    console.log( 'jq');
+    $('#clear-button').on('click', clearInputs);
+    $('#input-fields').on('submit', postInputs);
+    $('#addition').on('click', addSelect);
+    $('#subtraction').on('click', subtractSelect);
+    $('#multiplication').on('click', multiplySelect);
+    $('#division').on('click', divideSelect);
     getEquations();
 }
 
 function clearInputs () {
-    $('.inputTextBox').val('')
+    $('.inputTextBox').val('');
+    $('.math-button').css("background-color", "white");
 }
 
 function postInputs(event){
@@ -17,8 +22,8 @@ function postInputs(event){
     const input1 = $('#value-one').val();
     const input2 = $('#value-two').val();
 
-    $('#value-one').val('')
-    $('#value-two').val('')
+    $('#value-one').val('');
+    $('#value-two').val('');
 
     $.ajax({
         method: 'POST',
@@ -30,14 +35,14 @@ function postInputs(event){
         }
         }).then(function(response){
             // console log will show up in terminal - .then runs after .ajax is finished
-            console.log( 'Success!' )
+            console.log( 'Success!' );
             // calling function getInventory (which grabs all the items and renders them to the DOM
             // by calling the renderToDom function)
             getEquations();
             // sends back error code if something goes wrong
         }).catch(function(error) {
-            alert('Error with inventory post!')
-            console.log('Error with post:', error)
+            alert('Error with inventory post!');
+            console.log('Error with post:', error);
         })
 }
 
@@ -53,8 +58,8 @@ function getEquations(){
         renderToDom(response);
         // if there is an error from the server, run this function with argument of error
     }).catch( function ( error ){
-        alert( 'Request Failed' )
-        console.log( 'Request Failed:', error )
+        alert( 'Request Failed' );
+        console.log( 'Request Failed:', error );
     })
 }
 
@@ -67,4 +72,24 @@ function renderToDom(equations){
         <li>${equation.input1}, ${equation.input2}</li>
         `);
     }
+}
+
+function addSelect() {
+    $('.math-button').css("background-color", "white");
+    $('#addition').css("background-color", "red")
+}
+
+function subtractSelect() {
+    $('.math-button').css("background-color", "white");
+    $('#subtraction').css("background-color", "red")
+}
+
+function multiplySelect() {
+    $('.math-button').css("background-color", "white");
+    $('#multiplication').css("background-color", "red")
+}
+
+function divideSelect() {
+    $('.math-button').css("background-color", "white");
+    $('#division').css("background-color", "red")
 }
