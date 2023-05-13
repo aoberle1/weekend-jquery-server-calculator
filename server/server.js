@@ -1,5 +1,6 @@
 const express = require('express');
 
+// creating empty array to store equation objects
 const equationArray = [];
 
 
@@ -23,23 +24,22 @@ app.get('/inputData', function(req, res) {
 
 app.post('/inputData', function(req, res){
     console.log('POST some equations:', req.body);
-    // we want to add our input equation into our equation array
-    // input equation item is our req.body, pushing it into the equationArray
     // calling function getAnswer using the argument req.body
     getAnswer(req.body)
-    
+    // pushing newObject that we created with answer property to equationArray
     equationArray.push(newObject);
     res.sendStatus(201)
 });
 
+// empty global variables used by getAnswer function
 let answer;
 let newObject = {}
 
+// creating getAnswer function which will use req.body for argument
 function getAnswer(reqBody) {
-    // let input1;
-    // let input2;
-
+    // if operator property of req.body is a - character
     if( reqBody.operator === '-' ){
+        // subtract input2 from input1 and set global variable answer to value
         answer = reqBody.input1 - reqBody.input2
     }
     else if( reqBody.operator === '+'){
@@ -51,6 +51,7 @@ function getAnswer(reqBody) {
     else if( reqBody.operator === '/'){
         answer = reqBody.input1 / reqBody.input2
     }
+    // function returns newObject that has property answer
     return newObject = {
         input1: reqBody.input1,
         operator: reqBody.operator,
