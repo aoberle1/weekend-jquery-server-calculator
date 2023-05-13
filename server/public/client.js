@@ -1,7 +1,7 @@
 $(document).ready(onReady);
 
 function onReady(){
-    console.log( 'jq');
+    // console.log( 'jq');
     $('#clear-button').on('click', clearInputs);
     $('#input-fields').on('submit', postInputs);
     $('#addition').on('click', addSelect);
@@ -10,6 +10,8 @@ function onReady(){
     $('#division').on('click', divideSelect);
     getEquations();
 }
+
+let operator;
 
 function clearInputs () {
     $('.inputTextBox').val('');
@@ -21,7 +23,7 @@ function postInputs(event){
 
     const input1 = $('#value-one').val();
     const input2 = $('#value-two').val();
-
+// emptying out input fields after getting values from them
     $('#value-one').val('');
     $('#value-two').val('');
 
@@ -31,11 +33,12 @@ function postInputs(event){
         data: {
         // data inputs are variables created earlier at top of addInventory
         input1,
-        input2
+        operator,
+        input2,
         }
         }).then(function(response){
             // console log will show up in terminal - .then runs after .ajax is finished
-            console.log( 'Success!' );
+            console.log( 'Successly POSTed!' );
             // calling function getInventory (which grabs all the items and renders them to the DOM
             // by calling the renderToDom function)
             getEquations();
@@ -65,31 +68,36 @@ function getEquations(){
 
 function renderToDom(equations){
     $('#past-equations').empty();
-
-    // for loop to loop through items of inventory
+    // for loop to loop through equations in equations array
     for (let equation of equations){
+        // appending element with id past-equations
         $('#past-equations').append(`
-        <li>${equation.input1}, ${equation.input2}</li>
+        <li>${equation.input1} ${equation.operator} ${equation.input2} = ${equation.answer} </li>
         `);
+        $('#equation-solution').text(`${equation.answer}`)
     }
 }
 
 function addSelect() {
     $('.math-button').css("background-color", "white");
     $('#addition').css("background-color", "red")
+    operator = '+';
 }
 
 function subtractSelect() {
     $('.math-button').css("background-color", "white");
     $('#subtraction').css("background-color", "red")
+    operator = '-';
 }
 
 function multiplySelect() {
     $('.math-button').css("background-color", "white");
     $('#multiplication').css("background-color", "red")
+    operator = '*';
 }
 
 function divideSelect() {
     $('.math-button').css("background-color", "white");
     $('#division').css("background-color", "red")
+    operator = '/';
 }
