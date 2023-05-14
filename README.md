@@ -33,4 +33,24 @@ Your project description goes here. What problem did you solve? How did you solv
     -server.js sends the array of equations as response to the GET request
     -client.js renders the equations to the DOM using the renderToDOM function in the corresponding html elements
 
+-Stretch Planning:
+    - Make Calculator Buttons (10 new buttons for now - decimal later)
+        -New button order:
+            Output Row - Output Field, C (clear button) - clear button still works as before - empties single field only (check if used class or ID) - delete 2nd input field from HTML
+            1st Row - 7, 8, 9, +
+            2nd Row - 4, 5, 6, -
+            3rd Row - 1, 2, 3, *
+            4th Row - 0, =, /
+            - give buttons ID and class
+    
+    - Make button inputs display to DOM in output field
+        - hey jquery, on button click with class of number buttons, run function postNumbers
+            -button input ajax POSTed and pushed into "inputArray" in server.js in app.post,  ajax POST then funs function getNumbers
+            -getNumbers function will run an ajax GET request for the inputArray, server will respond with it
+            -ajax GET will run renderToDOM function
+            -renderToDOM function will append the output field HTML element with the last item in the inputArray (inputArray.length-1)
+                - OR in case that doesn't work - empty output field each time function is run, append it with the full array by looping through each index of array
+            
+
+
 Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
